@@ -32,10 +32,13 @@ func WithInitialMap[T, U comparable](m map[T]U) option[T, U] {
 	return initialOption[T, U](m)
 }
 
-func New[T, U comparable](...option[T, U]) *BiMap[T, U] {
+func New[T, U comparable](options ...option[T, U]) *BiMap[T, U] {
 	m := &BiMap[T, U]{
 		front: make(map[T]U),
 		back:  make(map[U]T),
+	}
+	for _, opt := range options {
+		opt.apply(m)
 	}
 	return m
 }

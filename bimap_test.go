@@ -47,3 +47,13 @@ func TestDeleteBack(t *testing.T) {
 		t.Error("Should be deleted")
 	}
 }
+
+func TestNewWithInitialMap(t *testing.T) {
+	k, v := "k", "v"
+	m := New(WithInitialMap(map[string]string{
+		k: v,
+	}))
+	if val, _ := m.GetFront(k); v != val {
+		t.Errorf("Values not equal, want: %s, got: %s", v, val)
+	}
+}
